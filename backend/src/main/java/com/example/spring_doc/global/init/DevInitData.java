@@ -25,14 +25,19 @@ public class DevInitData {
     public ApplicationRunner devApplicationRunner() {
         return args -> {
             genApiJsonFile("http://localhost:8080/v3/api-docs/apiV1", "apiV1.json");
-            runCmd();
+            runCmd(
+                    List.of(
+                            "cmd.exe",
+                            "/c",
+                            "npx --package typescript --package openapi-typescript --package punycode openapi-typescript apiV1.json -o ../frontend/src/lib/backend/apiV1/schema.d.ts")
+            );
         };
     }
 
-    public void runCmd() {
+    public void runCmd(List<String> command) {
         // 실행할 터미널 명령어 (예: ls -l 또는 dir)
 //        List<String> command = List.of("ls", "-l"); // macOS/Linux
-        List<String> command = List.of("cmd.exe", "/c", "npx --package typescript --package openapi-typescript --package punycode openapi-typescript apiV1.json -o schema.d.ts"); // Windows
+//         List<String> command =  // Windows
 
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(command);
