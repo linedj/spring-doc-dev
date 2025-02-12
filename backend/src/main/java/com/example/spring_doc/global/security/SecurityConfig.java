@@ -32,6 +32,8 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/api/v1/posts/statistics")
                                 .hasAuthority("ADMIN")
+                                .requestMatchers("/swagger-ui/**")
+                                .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
