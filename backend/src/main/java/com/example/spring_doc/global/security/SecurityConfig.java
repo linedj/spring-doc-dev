@@ -31,11 +31,16 @@ public class SecurityConfig {
                                 .requestMatchers("/api/*/members/login", "/api/*/members/join", "/api/*/members/logout")
                                 .permitAll()
                                 .requestMatchers("/api/v1/posts/statistics")
-                                .hasAuthority("ADMIN")
-                                .requestMatchers("/swagger-ui/**")
-                                .permitAll()
-                                .anyRequest()
+                                .hasRole("ADMIN")
+                                .requestMatchers("/api/*/**")
                                 .authenticated()
+                                .anyRequest()
+                                .permitAll()
+
+//                                .requestMatchers("/","/swagger-ui/**", "/v3/api-docs/**")
+//                                .permitAll()
+//                                .anyRequest()
+//                                .authenticated()
                 )
                 .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
